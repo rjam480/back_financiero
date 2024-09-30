@@ -28,10 +28,10 @@ return new class extends Migration
             $table->double('radicacion_mensual', 16,2)->default(0);
             $table->string('bloqueo', 50);
             $table->double('pago_gd_subsidiado', 16,2)->default(0);
-            $table->double('gd_contr_1', 16,2)->default(0);
-            $table->double('gd_contr_2', 16,2)->default(0);
-            $table->double('gd_contr_3', 16,2)->default(0);
-            $table->double('gd_contr_4', 16,2)->default(0);
+            $table->double('gd_contr_i', 16,2)->default(0);
+            $table->double('gd_contr_ii', 16,2)->default(0);
+            $table->double('gd_contr_iii', 16,2)->default(0);
+            $table->double('gd_contr_iv', 16,2)->default(0);
             $table->double('otros_giros', 16,2)->default(0);
             $table->double('pago_por_tesoreria', 16,2)->default(0);
             $table->double('total_giros', 16,2)->default(0);
