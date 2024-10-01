@@ -14,7 +14,7 @@ return new class extends Migration
         
         Schema::create('giros', function (Blueprint $table) {
             $table->id();
-            $table->string('mecanismo',15);
+            $table->string('mecanismo',20);
             $table->date('fecha_pagos_ips');
             $table->string('nit',11);
             $table->string('razon_social',100);
