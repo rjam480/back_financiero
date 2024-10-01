@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('regimen',14);
             $table->string('modalidad',20);
             $table->string('mes',10);
-            $table->string('mes_numero',1);
+            $table->string('mes_numero',2);
             $table->string('agrupador',20);
             $table->timestamps();
         });
