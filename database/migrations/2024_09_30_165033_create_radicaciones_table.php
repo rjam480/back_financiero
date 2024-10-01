@@ -17,9 +17,9 @@ return new class extends Migration
             $table->string('nit', 11);
             $table->string('razon_social', 100);
             $table->string('anio_radicacion', 4);
-            $table->string('mes_radicacion', 1);
+            $table->string('mes_radicacion', 2);
             $table->string('anio_inicio_prestacion', 4);
-            $table->string('mes_inicio_prestacion', 1);
+            $table->string('mes_inicio_prestacion', 2);
             $table->string('tipo_factura_agrupado', 13);
             $table->string('estado_factura_agrupado', 13);
             $table->string('regimen_factura', 13);
