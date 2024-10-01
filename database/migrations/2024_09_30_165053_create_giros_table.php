@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('razon_social',100);
             $table->double('valor_giro',16,2)->default(0);
             $table->string('regimen',14);
-            $table->string('modalidad',20);
+            $table->string('modalidad',40);
             $table->string('mes',10);
             $table->string('mes_numero',2);
             $table->string('agrupador',20);
