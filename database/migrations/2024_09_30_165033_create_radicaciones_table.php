@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('mes_radicacion', 2);
             $table->string('anio_inicio_prestacion', 4);
             $table->string('mes_inicio_prestacion', 2);
-            $table->string('tipo_factura_agrupado', 13);
-            $table->string('estado_factura_agrupado', 13);
+            $table->string('tipo_factura_agrupado', 30);
+            $table->string('estado_factura_agrupado', 30);
             $table->string('regimen_factura', 13);
             $table->double('valor', 16,2)->default(0);
             $table->string('clasificacion', 20);
