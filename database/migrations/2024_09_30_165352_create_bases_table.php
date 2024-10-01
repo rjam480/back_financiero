@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('razon_social', 100);
             $table->string('tipo_prestador', 15);
             $table->string('zonal', 20);
-            $table->string('grupo', 15);
+            $table->string('grupo', 30);
             $table->string('habitacion', 2);
             $table->string('red', 25);
             $table->double('cxp', 16,2)->default(0);
@@ -26,7 +26,7 @@ return new class extends Migration
             $table->double('devolucion', 16,2)->default(0);
             $table->double('glosas', 16,2)->default(0);
             $table->double('radicacion_mensual', 16,2)->default(0);
-            $table->string('bloqueo', 50);
+            $table->string('bloqueo', 100);
             $table->double('pago_gd_subsidiado', 16,2)->default(0);
             $table->double('gd_contr_i', 16,2)->default(0);
             $table->double('gd_contr_ii', 16,2)->default(0);
