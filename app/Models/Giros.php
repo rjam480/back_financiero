@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Giros extends Model
 {
     use HasFactory;
+    protected $table = 'giros';
 }
