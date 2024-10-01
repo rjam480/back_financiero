@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('modalidad',40);
             $table->string('mes',10);
             $table->string('mes_numero',2);
-            $table->string('agrupador',20);
+            $table->string('agrupador',30);
             $table->timestamps();
         });
     }
