@@ -11,12 +11,13 @@ class FinancieroController extends Controller
     public function consultaFinanciero(Request $request,$nit)
     {
        
-        
+        // $this->totalAnioCorrienteRadicacion($this->segundaSeccion($nit),$this->terceraSeccion($nit));
         $dataResponse =[
-            'cabecera'=> $$this->agregarValoresaCabecera($this->cabecera($nit),$this->segundaSeccion($nit),$this->terceraSeccion($nit)),
+            'cabecera'=> $this->agregarValoresaCabecera($this->cabecera($nit),$this->segundaSeccion($nit),$this->terceraSeccion($nit)),
             'primer_seccion'=>$this->primerSeccion($nit),
             'segunda_seccion'=>$this->segundaSeccion($nit),
             'tercer_seccion'=>$this->terceraSeccion($nit),
+            'total_2024'=>$this->totalAnioCorrienteRadicacion($this->segundaSeccion($nit),$this->terceraSeccion($nit)),
         ];
 
         return response()->json($dataResponse,200);
@@ -202,5 +203,20 @@ class FinancieroController extends Controller
         $cabecera[0]->giro_mes_actual = $girosMesActual;
 
         return $cabecera;
+    }
+
+    public function totalAnioCorrienteRadicacion($segundaSeccion,$terceraSeccion)
+    {
+        $totalCorriente = $segundaSeccion[0];
+        $totalRadicacion = $segundaSeccion[1];
+        // sumatoria total de datos total corriente
+        unset($totalCorriente->Clasificacion);
+        $totalCorriente = (array) $totalCorriente;
+        $totalCorriente =  array_sum($totalCorriente);
+        // sumatoria total de datos total radicacion
+        unset($totalRadicacion->Clasificacion);
+        $totalRadicacion = (array) $totalRadicacion;
+        $totalRadicacion =  array_sum($totalRadicacion);
+        dd($totalRadicacion);
     }
 }
