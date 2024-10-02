@@ -11,9 +11,9 @@ class FinancieroController extends Controller
     public function consultaFinanciero(Request $request,$nit)
     {
        
-
+        
         $dataResponse =[
-            'cabecera'=> $this->cabecera($nit),
+            'cabecera'=> $$this->agregarValoresaCabecera($this->cabecera($nit),$this->segundaSeccion($nit),$this->terceraSeccion($nit)),
             'primer_seccion'=>$this->primerSeccion($nit),
             'segunda_seccion'=>$this->segundaSeccion($nit),
             'tercer_seccion'=>$this->terceraSeccion($nit),
@@ -169,5 +169,38 @@ class FinancieroController extends Controller
                 WHERE nit = '$nit'");
 
         return $result;
+    }
+
+
+    public function agregarValoresaCabecera($cabecera,$segundaSeccion,$terceraSeccion)
+    {
+        $mesActual = date('m');
+        $mes = [
+            "01"=>"ENE",
+            "02"=>"FEB",
+            "03"=>"MAR",
+            "04"=>"ABR",
+            "05"=>"MAY",
+            "06"=>"JUN",
+            "07"=>"JUL",
+            "08"=>"AGO",
+            "09"=>"SEP",
+            "10"=>"OCT",
+            "11"=>"NOV",
+            "12"=>"DIC",
+        ];
+        // calculamos el total de radicacion
+        $totalRadicacion = $segundaSeccion[1];
+        unset($totalRadicacion->Clasificacion);
+        $totalRadicacion = (array) $totalRadicacion;
+        $totalRadicacion = array_sum($totalRadicacion);
+        // tomamos el ultimo mes en curso
+        $girosMesActual = (array) $terceraSeccion[0];
+        $selecionMes = $mes[$mesActual];
+        $girosMesActual = $girosMesActual[$selecionMes];
+        $cabecera[0]->promedio_radicacion = $totalRadicacion;
+        $cabecera[0]->giro_mes_actual = $girosMesActual;
+
+        return $cabecera;
     }
 }
