@@ -11,7 +11,7 @@ class FinancieroController extends Controller
     public function consultaFinanciero(Request $request,$nit)
     {
        
-        // $this->totalAnioCorrienteRadicacion($this->segundaSeccion($nit),$this->terceraSeccion($nit));
+        // $this->totalIntervencionMes($this->segundaSeccion($nit),$this->terceraSeccion($nit));
         $dataResponse =[
             'cabecera'=> $this->agregarValoresaCabecera($this->cabecera($nit),$this->segundaSeccion($nit),$this->terceraSeccion($nit)),
             'primer_seccion'=>$this->primerSeccion($nit),
@@ -217,6 +217,39 @@ class FinancieroController extends Controller
         unset($totalRadicacion->Clasificacion);
         $totalRadicacion = (array) $totalRadicacion;
         $totalRadicacion =  array_sum($totalRadicacion);
-        dd($totalRadicacion);
+        // calcular el total de giros
+        $totalGiros = $terceraSeccion[0];
+        $totalGiros = (array) $totalGiros;
+        $totalGiros = array_sum($totalGiros);
+        // porcentaje giros
+        $porcentajeGiros =  ($totalGiros/$totalCorriente) * 100;
+
+        $objeto = (object) [
+            'radicacion'=> $totalRadicacion,
+            'prestacion'=> $totalCorriente,
+            'giros'=>$totalGiros,
+            'porcentaje_giros'=> $porcentajeGiros
+        ];
+
+        $result[]= $objeto;
+
+        return $result;
+    }
+
+    public function totalIntervencionMes($segundaSeccion,$terceraSeccion)
+    {
+        foreach ($segundaSeccion as $key => $value) {
+
+            unset($value->Clasificacion);
+            unset($value->ENE);
+            unset($value->FEB);
+            unset($value->MAR);
+            unset($value);
+            unset($value);
+            unset($value);
+            unset($value);
+            unset($value);
+           dd($value);
+        }
     }
 }
