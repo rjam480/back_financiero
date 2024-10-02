@@ -11,13 +11,14 @@ class FinancieroController extends Controller
     public function consultaFinanciero(Request $request,$nit)
     {
        
-        // $this->totalIntervencionMes($this->segundaSeccion($nit),$this->terceraSeccion($nit));
+
         $dataResponse =[
             'cabecera'=> $this->agregarValoresaCabecera($this->cabecera($nit),$this->segundaSeccion($nit),$this->terceraSeccion($nit)),
             'primer_seccion'=>$this->primerSeccion($nit),
             'segunda_seccion'=>$this->segundaSeccion($nit),
-            'tercer_seccion'=>$this->terceraSeccion($nit),
+            'tercer_seccion'=>$this->girosCorrienteRadicadoPorcentaje($this->segundaSeccion($nit),$this->terceraSeccion($nit)),
             'total_2024'=>$this->totalAnioCorrienteRadicacion($this->segundaSeccion($nit),$this->terceraSeccion($nit)),
+            'intervencion_mes'=>$this->totalIntervencionMes($this->segundaSeccion($nit),$this->terceraSeccion($nit)),
         ];
 
         return response()->json($dataResponse,200);
@@ -238,18 +239,113 @@ class FinancieroController extends Controller
 
     public function totalIntervencionMes($segundaSeccion,$terceraSeccion)
     {
+        // se remueven los meses de enero a mar total corriente y radicacion
         foreach ($segundaSeccion as $key => $value) {
-
             unset($value->Clasificacion);
             unset($value->ENE);
             unset($value->FEB);
             unset($value->MAR);
-            unset($value);
-            unset($value);
-            unset($value);
-            unset($value);
-            unset($value);
-           dd($value);
+        }
+        $totalCorriente = $segundaSeccion[0];
+        $totalRadicacion = $segundaSeccion[1];
+        // sumatoria total de datos total corriente
+        $totalCorriente = (array) $totalCorriente;
+        $totalCorriente =  array_sum($totalCorriente);
+        // sumatoria total de datos total radicacion
+        $totalRadicacion = (array) $totalRadicacion;
+        $totalRadicacion =  array_sum($totalRadicacion);
+        // se remueven los meses de enero a mar giros
+        
+        foreach ($terceraSeccion as $key => $value) {
+            unset($value->ENE);
+            unset($value->FEB);
+            unset($value->MAR);
+        }
+
+        // calcular el total de giros
+        $totalGiros = $terceraSeccion[0];
+        $totalGiros = (array) $totalGiros;
+        $totalGiros = array_sum($totalGiros);
+        // porcentaje giros
+        $porcentajeGiros =  ($totalGiros/$totalCorriente) * 100;
+
+        $objeto = (object) [
+            'radicacion'=> $totalRadicacion,
+            'prestacion'=> $totalCorriente,
+            'giros'=>$totalGiros,
+            'porcentaje_giros'=> $porcentajeGiros
+        ];
+
+        $result[]= $objeto;
+
+        
+        return $result;
+
+    }
+
+    public function girosCorrienteRadicadoPorcentaje($segundaSeccion,$terceraSeccion)
+    {
+        // se busca calcular el porcentaje corriente y radicado respecto al giro
+       
+        $object = [];
+        foreach ($segundaSeccion as $key => $value) {
+            if ($value->Clasificacion == 'TOTAL CORRIENTE') {
+                foreach ($terceraSeccion as $keyTercera => $valueSeccionTercera) {
+                    // $val = get_object_vars($valueSeccionTercera);
+                    
+                    $object[]=(object)[
+                        'Clasificacion' => 'Porcentaje corriente',
+                        "ENE" => $this->validarDivision($valueSeccionTercera->ENE,$value->ENE),
+                        "FEB" => $this->validarDivision($valueSeccionTercera->FEB,$value->FEB),
+                        "MAR" => $this->validarDivision($valueSeccionTercera->MAR,$value->MAR),
+                        "ABR" => $this->validarDivision($valueSeccionTercera->ABR,$value->ABR),
+                        "MAY" => $this->validarDivision($valueSeccionTercera->MAY,$value->MAY),
+                        "JUN" => $this->validarDivision($valueSeccionTercera->JUN,$value->JUN),
+                        "JUL" => $this->validarDivision($valueSeccionTercera->JUL,$value->JUL),
+                        "AGO" => $this->validarDivision($valueSeccionTercera->AGO,$value->AGO),
+                        "SEP" => $this->validarDivision($valueSeccionTercera->SEP,$value->SEP),
+                        "OCT" => $this->validarDivision($valueSeccionTercera->OCT,$value->OCT),
+                        "NOV" => $this->validarDivision($valueSeccionTercera->NOV,$value->NOV),
+                        "DIC" => $this->validarDivision($valueSeccionTercera->DIC,$value->DIC),
+                    ];
+                }
+            }
+
+            if ($value->Clasificacion == 'TOTAL RADICACION') {
+                foreach ($terceraSeccion as $keyTercera => $valueSeccionTercera) {
+                    // $val = get_object_vars($valueSeccionTercera);
+                    
+                    $object[]=(object)[
+                        'Clasificacion' => 'Porcentaje radicacion',
+                        "ENE" => $this->validarDivision($valueSeccionTercera->ENE,$value->ENE),
+                        "FEB" => $this->validarDivision($valueSeccionTercera->FEB,$value->FEB),
+                        "MAR" => $this->validarDivision($valueSeccionTercera->MAR,$value->MAR),
+                        "ABR" => $this->validarDivision($valueSeccionTercera->ABR,$value->ABR),
+                        "MAY" => $this->validarDivision($valueSeccionTercera->MAY,$value->MAY),
+                        "JUN" => $this->validarDivision($valueSeccionTercera->JUN,$value->JUN),
+                        "JUL" => $this->validarDivision($valueSeccionTercera->JUL,$value->JUL),
+                        "AGO" => $this->validarDivision($valueSeccionTercera->AGO,$value->AGO),
+                        "SEP" => $this->validarDivision($valueSeccionTercera->SEP,$value->SEP),
+                        "OCT" => $this->validarDivision($valueSeccionTercera->OCT,$value->OCT),
+                        "NOV" => $this->validarDivision($valueSeccionTercera->NOV,$value->NOV),
+                        "DIC" => $this->validarDivision($valueSeccionTercera->DIC,$value->DIC),
+                    ];
+                }
+            }
+        }
+        $terceraSeccion[0]->Clasificacion = 'Giros';
+        $object[] = $terceraSeccion[0];
+      
+        return $object;
+        
+    }
+
+    public function validarDivision($value1,$value2)
+    {
+        if ($value1 > 0 && $value2 > 0) {
+            return (($value1 / $value2) * 100);
+        }else{
+            return 0.0;
         }
     }
 }
