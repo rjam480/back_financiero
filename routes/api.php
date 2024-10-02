@@ -1,9 +1,9 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\FinancieroController;
+use App\Http\Controllers\AuthController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -19,5 +19,10 @@ use App\Http\Controllers\FinancieroController;
 //     return $request->user();
 // });
 
+Route::post('/auth/login',[AuthController::class,'authLogin'])->name('authlogin');
+  
 
-Route::get('/consulta_financiero/{nit}',[FinancieroController::class,'consultaFinanciero'])->name('consultaFinanciero');
+Route::middleware('auth:sanctum')->group( function () {
+    Route::get('consulta_financiero/{nit}',[FinancieroController::class,'consultaFinanciero'])->name('consultaFinanciero');
+    Route::post('/auth/logout',[AuthController::class,'authLogout'])->name('authlogout');
+});

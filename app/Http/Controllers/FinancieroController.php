@@ -175,6 +175,7 @@ class FinancieroController extends Controller
 
     public function agregarValoresaCabecera($cabecera,$segundaSeccion,$terceraSeccion)
     {
+        
         $mesActual = date('m');
         $mes = [
             "01"=>"ENE",
