@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 
 class FinancieroController extends Controller
 {
-    //
 
     public function consultaFinanciero(Request $request,$nit)
     {
