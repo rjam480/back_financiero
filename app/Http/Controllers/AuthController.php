@@ -22,6 +22,8 @@ class AuthController extends Controller
         //     'password'=>'required|min:8'
         // ]);
         $user = User::where('name',$nit)->first();
+        $validandoHas = \Hash::check($password,$user->password);
+        dd($validandoHas);
         // if(!$user || !Hash::check($loginUserData['password'],$user->password)){
         //     return response()->json([
         //         'message' => 'Invalid Credentials'
