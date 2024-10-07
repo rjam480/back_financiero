@@ -401,8 +401,8 @@ class FinancieroController extends Controller
                 }
             }
         }
-        $terceraSeccion[0]->Clasificacion = 'Giros';
-        $object[] = $terceraSeccion[0];
+        // $terceraSeccion[0]->Clasificacion = 'Giros';
+        // $object[] = $terceraSeccion[0];
 
         return $object;
     }
