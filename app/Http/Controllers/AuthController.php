@@ -17,24 +17,27 @@ class AuthController extends Controller
 
         $nit = $request->get('nit');
         $password = $request->get('password');
-        // $loginUserData = $request->validate([
-        //     'email'=>'required|string|email',
-        //     'password'=>'required|min:8'
-        // ]);
-        $user = User::where('name',$nit)->first();
+      
+        $user = $this->user->where('nit','=',$nit)->first();
         $validandoHas = \Hash::check($password,$user->password);
-        dd($validandoHas);
-        // if(!$user || !Hash::check($loginUserData['password'],$user->password)){
-        //     return response()->json([
-        //         'message' => 'Invalid Credentials'
-        //     ],401);
-        // }
-        $token = $user->createToken($user->name.'-AuthToken')->plainTextToken;
-        return response()->json([
-            'data'          => $user,
-            'access_token'  => $token,
-            'token_type'    => 'Bearer'
-        ]);
+       
+        
+        if ($validandoHas) {
+            $token = $user->createToken($user->name.'-AuthToken')->plainTextToken;
+            return response()->json([
+                'data'          => $user,
+                'access_token'  => $token,
+                'token_type'    => 'Bearer',
+                'msg'           => 'Login'
+            ]);
+        }else{
+            return response()->json([
+                'data'          => [],
+                'access_token'  => '',
+                'token_type'    => '',
+                'msg'           => 'Credenciales incorrectas'
+            ]);
+        }
     }
 
     public function authLogout(){
