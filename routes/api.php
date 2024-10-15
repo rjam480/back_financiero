@@ -24,6 +24,6 @@ Route::post('/auth/login',[AuthController::class,'authLogin'])->name('authlogin'
 
 Route::middleware('auth:sanctum')->group( function () {
     // Route::get('consulta_financiero/{nit}',[FinancieroController::class,'consultaFinanciero'])->name('consultaFinanciero');
+    Route::get('consulta_financiero/{nit}',[FinancieroController::class,'consultaFinanciero'])->name('consultaFinanciero');
     Route::post('/auth/logout',[AuthController::class,'authLogout'])->name('authlogout');
 });
-Route::get('consulta_financiero/{nit}',[FinancieroController::class,'consultaFinanciero'])->name('consultaFinanciero');
