@@ -88,45 +88,11 @@ class FinancieroController extends Controller
         $totalRadicacion = $this->eliminarMesAnteriorYPosteriores($arrayReferenceSegundaSeccion[1]);
         // sumatoria total de datos total corriente
       
-        /* if ($mesActual != '01') {
-           
-
-            foreach ($totalCorriente as $keyT => $valueT) {
-                # code...
-                $mesActual = (int) $mesActual;
-                if ((int) $mesActual <= 12) {
-                    $mesActual = ($mesActual <=9) ? "0$mesActual":$mesActual;
-                    $keyMesremove = $mes[$mesActual];
-                    
-                    $mesActual ++;
-                   
-                    unset($totalCorriente->$keyMesremove);
-                    
-                }
-            }
-        } */
-        
         unset($totalCorriente->Clasificacion);
         $totalCorriente = (array) $totalCorriente;
         $totalCorriente =  array_sum($totalCorriente);
         // sumatoria total de datos total radicacion
-       /*  $mesActual = date('m');
-        if ($mesActual != '01') {
-           
-
-            foreach ($totalRadicacion as $keyR => $valueR) {
-                # code...
-                if ((int) $mesActual <= 12) {
-                  
-                    $mesActual = ($mesActual <=9) ? "0$mesActual":$mesActual;
-                    $keyMesremove = $mes[$mesActual];
-                    $mesActual ++;
-                    unset($totalRadicacion->$keyMesremove);
-                    
-                }
-            }
-        } */
-       
+      
         unset($totalRadicacion->Clasificacion);
         $totalRadicacion = (array) $totalRadicacion;
         $totalRadicacion =  array_sum($totalRadicacion);
