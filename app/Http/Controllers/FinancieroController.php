@@ -77,16 +77,56 @@ class FinancieroController extends Controller
 
     public function totalAnioCorrienteRadicacion($segundaSeccion, $terceraSeccion)
     {
+
+        
+    
         $arrayReferenceSegundaSeccion =  unserialize(serialize($segundaSeccion));
         $arrayReferenceTerceraSeccion =  unserialize(serialize($terceraSeccion));
 
-        $totalCorriente = $arrayReferenceSegundaSeccion[0];
-        $totalRadicacion = $arrayReferenceSegundaSeccion[1];
+        $totalCorriente = $this->eliminarMesAnteriorYPosteriores($arrayReferenceSegundaSeccion[0]);
+       
+        $totalRadicacion = $this->eliminarMesAnteriorYPosteriores($arrayReferenceSegundaSeccion[1]);
         // sumatoria total de datos total corriente
+      
+        /* if ($mesActual != '01') {
+           
+
+            foreach ($totalCorriente as $keyT => $valueT) {
+                # code...
+                $mesActual = (int) $mesActual;
+                if ((int) $mesActual <= 12) {
+                    $mesActual = ($mesActual <=9) ? "0$mesActual":$mesActual;
+                    $keyMesremove = $mes[$mesActual];
+                    
+                    $mesActual ++;
+                   
+                    unset($totalCorriente->$keyMesremove);
+                    
+                }
+            }
+        } */
+        
         unset($totalCorriente->Clasificacion);
         $totalCorriente = (array) $totalCorriente;
         $totalCorriente =  array_sum($totalCorriente);
         // sumatoria total de datos total radicacion
+       /*  $mesActual = date('m');
+        if ($mesActual != '01') {
+           
+
+            foreach ($totalRadicacion as $keyR => $valueR) {
+                # code...
+                if ((int) $mesActual <= 12) {
+                  
+                    $mesActual = ($mesActual <=9) ? "0$mesActual":$mesActual;
+                    $keyMesremove = $mes[$mesActual];
+                    $mesActual ++;
+                    unset($totalRadicacion->$keyMesremove);
+                    
+                }
+            }
+        } */
+       
         unset($totalRadicacion->Clasificacion);
         $totalRadicacion = (array) $totalRadicacion;
         $totalRadicacion =  array_sum($totalRadicacion);
@@ -108,7 +148,7 @@ class FinancieroController extends Controller
         ];
 
         $result[] = $objeto;
-
+        
         return $result;
     }
 
@@ -124,8 +164,9 @@ class FinancieroController extends Controller
             unset($value->FEB);
             unset($value->MAR);
         }
-        $totalCorriente = $arrayReferenceSegundaSeccion[0];
-        $totalRadicacion = $arrayReferenceSegundaSeccion[1];
+        $totalCorriente = $this->eliminarMesAnteriorYPosteriores($arrayReferenceSegundaSeccion[0]);
+        $totalRadicacion = $this->eliminarMesAnteriorYPosteriores($arrayReferenceSegundaSeccion[1]);
+        
         // sumatoria total de datos total corriente
         $totalCorriente = (array) $totalCorriente;
         $totalCorriente =  array_sum($totalCorriente);
@@ -239,5 +280,47 @@ class FinancieroController extends Controller
         } else {
             return 0.0;
         }
+    }
+
+    public function eliminarMesAnteriorYPosteriores($data)
+    {
+        $mesActual = date('m');
+        $mes = [
+            "01" => "ENE",
+            "02" => "FEB",
+            "03" => "MAR",
+            "04" => "ABR",
+            "05" => "MAY",
+            "06" => "JUN",
+            "07" => "JUL",
+            "08" => "AGO",
+            "09" => "SEP",
+            "10" => "OCT",
+            "11" => "NOV",
+            "12" => "DIC",
+        ];
+
+        if ($mesActual != '01') {
+           
+
+            foreach ($data as $keyT => $valueT) {
+                # code...
+                $mesActual = (int) $mesActual;
+                if ((int) $mesActual <= 12) {
+                    $mesActual = ($mesActual <=9) ? "0$mesActual":$mesActual;
+                    $keyMesremove = $mes[$mesActual];
+                    
+                    $mesActual ++;
+                   
+                    unset($data->$keyMesremove);
+                    
+                }
+            }
+         
+            return $data;
+        }else{
+            return $data;
+        }
+
     }
 }
