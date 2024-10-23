@@ -78,13 +78,10 @@ class FinancieroController extends Controller
     public function totalAnioCorrienteRadicacion($segundaSeccion, $terceraSeccion)
     {
 
-        
-    
         $arrayReferenceSegundaSeccion =  unserialize(serialize($segundaSeccion));
         $arrayReferenceTerceraSeccion =  unserialize(serialize($terceraSeccion));
 
         $totalCorriente = $this->eliminarMesAnteriorYPosteriores($arrayReferenceSegundaSeccion[0]);
-       
         $totalRadicacion = $this->eliminarMesAnteriorYPosteriores($arrayReferenceSegundaSeccion[1]);
         // sumatoria total de datos total corriente
       
