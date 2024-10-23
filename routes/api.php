@@ -27,3 +27,6 @@ Route::middleware('auth:sanctum')->group( function () {
     Route::get('consulta_financiero/{nit}',[FinancieroController::class,'consultaFinanciero'])->name('consultaFinanciero');
     Route::post('/auth/logout',[AuthController::class,'authLogout'])->name('authlogout');
 });
+
+Route::post('/enviar-email',[AuthController::class,'enviarEmail'])->name('enviarEmail');
+Route::post('/recuperar-password',[AuthController::class,'recuperarPassword'])->name('recuperarPassword');

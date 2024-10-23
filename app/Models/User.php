@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-
-class User extends Authenticatable
+use OwenIt\Auditing\Contracts\Auditable;
+use OwenIt\Auditing\Auditable as AuditableTrait;
+use OwenIt\Auditing\Models\Audit;
+class User extends Authenticatable implements Auditable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable,AuditableTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -19,8 +21,14 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'nit',
         'email',
         'password',
+        'estado',
+        'is_admin',
+        'acepta_terminos',
+        'expira_password',
+        'remember_token'
     ];
 
     /**
@@ -42,4 +50,31 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+
+    public function validarFechaExpedicion($fechaExpira)
+    {
+        $fechaActual =  date('Y-m-d');
+
+        if ($fechaActual > $fechaExpira) {
+            return true;
+        }else{
+            return false;
+        }
+       
+    }
+
+    public function auditEvent($event)
+    {
+        // Create an audit entry with a custom event (e.g., login, logout)
+        Audit::create([
+            'auditable_type' => self::class,
+            'auditable_id'   => $this->id,
+            'event'          => $event,
+            'url'            => request()->fullUrl(),
+            'ip_address'     => request()->ip(),
+            'user_agent'     => request()->userAgent(),
+            'created_at'     => now(),
+        ]);
+    }
 }
