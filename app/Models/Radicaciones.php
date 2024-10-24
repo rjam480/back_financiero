@@ -26,7 +26,7 @@ class Radicaciones extends Model
 
     public function obtenerRadicacionesPorEstadosCSA($nit)
     {
-        $anio = data('Y');
+        $anio = date('Y');
         // Query Sección  Corriente/Sin Identificar/Anterior
         $result =  \DB::select("SELECT 
                     CASE 
