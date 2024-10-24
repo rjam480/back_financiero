@@ -51,7 +51,7 @@ class Bases extends Model
         return $result;
     }
 
-    public function pagosProveedor($nit)
+    public function proyeccionGiros($nit)
     {
         $result = \DB::select("SELECT pago_gd_subsidiado,
         gd_contr_i,

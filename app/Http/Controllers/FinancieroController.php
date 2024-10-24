@@ -25,7 +25,7 @@ class FinancieroController extends Controller
         $segundaSeccionInforme = $this->radicaciones->obtenerTotalCorrienteTotalRadicacion($nit);
         $terceraSeccionInforme = $this->giros->obtenerGiros($nit);
         $radicacionPorModalidadContrato = $this->radicaciones->radicacionPorModalidadContrato($nit);
-        $pagosProveedor = $this->bases->pagosProveedor($nit);
+        $proyeccionGiros = $this->bases->proyeccionGiros($nit);
         $girosModalidad = $this->giros->girosModalidad($nit);
         $dataResponse = [
             'cabecera' => $this->agregarValoresaCabecera($cabeceraInforme, $segundaSeccionInforme, $terceraSeccionInforme),
@@ -35,7 +35,7 @@ class FinancieroController extends Controller
             'total_2024' => $this->totalAnioCorrienteRadicacion($segundaSeccionInforme, $terceraSeccionInforme),
             'intervencion_mes' => $this->totalIntervencionMes($segundaSeccionInforme, $terceraSeccionInforme),
             'radicacionPorModalidadContrato' => $radicacionPorModalidadContrato,
-            'pagosProveedor' => $pagosProveedor,
+            'proyeccionGiros' => $proyeccionGiros,
             'girosModalidad' => $girosModalidad
         ];
 
