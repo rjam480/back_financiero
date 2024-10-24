@@ -101,7 +101,10 @@ class Giros extends Model
                     WHEN trim(modalidad)='TRASLADO PACIENTES' THEN 'TRASLADO PACIENTES'
                       
                 END
-            )");
+            )
+            having
+				(ENE > 0 OR  FEB > 0 OR MAR > 0 OR MAY  > 0 OR JUN  > 0 OR JUL  > 0 OR AGO  > 0 OR SEP  > 0 OR OCT  > 0 OR NOV  > 0 OR DIC  > 0 )
+            ");
 
         return $result;
     }
