@@ -101,7 +101,15 @@ class AuthController extends Controller
         $user->save();
         Mail::to($user->email)->send(new RecuperarPassword([
             'token' => $token,
-       ]));
+        ]));
+
+        return response()->json([
+            'data'          => [],
+            'access_token'  => '',
+            'token_type'    => '',
+            'msg'           => 'Email enviado satisfactoriamente',
+            'code_error'    => ''
+        ],200);
     }
 
     public function recuperarPassword(Request $request)
