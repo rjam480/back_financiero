@@ -43,4 +43,66 @@ class Giros extends Model
 
         return $result;
     }
+
+    public function girosModalidad($nit)
+    {
+        $result = \DB::select("SELECT 
+            (
+                CASE 
+                    WHEN trim(modalidad) = 'CÁPITA' THEN 'CÁPITA'
+                    WHEN trim(modalidad)='CÁPITA CERT' THEN 'CÁPITA CERT'
+					WHEN trim(modalidad)='CÁPITA CERTIFICADA' THEN 'CÁPITA CERTIFICADA'
+                    WHEN trim(modalidad)='CÁPITA MOVILIDAD ' THEN ' CÁPITA MOVILIDAD '
+                    WHEN trim(modalidad)='CÁPITA MOVILIDAD CERTIFICADA ' THEN ' CÁPITA MOVILIDAD CERTIFICADA '
+                    WHEN trim(modalidad)='EVENTO ' THEN ' EVENTO '
+                    WHEN trim(modalidad)='EVENTO MOVILIDAD ' THEN ' EVENTO MOVILIDAD '
+                    WHEN trim(modalidad)='MEDICAMENTOS IMPORTADOS ' THEN ' MEDICAMENTOS IMPORTADOS '
+                    WHEN trim(modalidad)='PAC' THEN 'PAC'
+                    WHEN trim(modalidad)='PAF' THEN 'PAF'
+                    WHEN trim(modalidad)='PAF MOVILIDAD' THEN 'PAF MOVILIDAD '
+                    WHEN trim(modalidad)='PGP' THEN 'PGP'
+                    WHEN trim(modalidad)='PGP MOVILIDAD' THEN 'PGP MOVILIDAD'
+                    WHEN trim(modalidad)='PRESUPUESTO MAXIMO' THEN 'PRESUPUESTO MAXIMO'
+                    WHEN trim(modalidad)='TRASLADO PACIENTES' THEN 'TRASLADO PACIENTES'
+                      
+                END
+            ) AS descripcion,
+            SUM(CASE WHEN mes_numero = 1 THEN valor_giro ELSE 0.00 END) AS ENE,
+            SUM(CASE WHEN mes_numero = 2 THEN valor_giro ELSE 0.00 END) AS FEB,
+            SUM(CASE WHEN mes_numero = 3 THEN valor_giro ELSE 0.00 END) AS MAR,
+            SUM(CASE WHEN mes_numero = 4 THEN valor_giro ELSE 0.00 END) AS ABR,
+            SUM(CASE WHEN mes_numero = 5 THEN valor_giro ELSE 0.00 END) AS MAY,
+            SUM(CASE WHEN mes_numero = 6 THEN valor_giro ELSE 0.00 END) AS JUN,
+            SUM(CASE WHEN mes_numero = 7 THEN valor_giro ELSE 0.00 END) AS JUL,
+            SUM(CASE WHEN mes_numero = 8 THEN valor_giro ELSE 0.00 END) AS AGO,
+            SUM(CASE WHEN mes_numero = 9 THEN valor_giro ELSE 0.00 END) AS SEP,
+            SUM(CASE WHEN mes_numero = 10 THEN valor_giro ELSE 0.00 END) AS OCT,
+            SUM(CASE WHEN mes_numero = 11 THEN valor_giro ELSE 0.00 END) AS NOV,
+            SUM(CASE WHEN mes_numero = 12 THEN valor_giro ELSE 0.00 END) AS DIC
+            FROM financiero.giros
+            where nit ='$nit'
+            group by
+            (
+                CASE 
+                    WHEN trim(modalidad) = 'CÁPITA' THEN 'CÁPITA'
+                    WHEN trim(modalidad)='CÁPITA CERT' THEN 'CÁPITA CERT'
+					WHEN trim(modalidad)='CÁPITA CERTIFICADA' THEN 'CÁPITA CERTIFICADA'
+                    WHEN trim(modalidad)='CÁPITA MOVILIDAD ' THEN ' CÁPITA MOVILIDAD '
+                    WHEN trim(modalidad)='CÁPITA MOVILIDAD CERTIFICADA ' THEN ' CÁPITA MOVILIDAD CERTIFICADA '
+                    WHEN trim(modalidad)='EVENTO ' THEN ' EVENTO '
+                    WHEN trim(modalidad)='EVENTO MOVILIDAD ' THEN ' EVENTO MOVILIDAD '
+                    WHEN trim(modalidad)='MEDICAMENTOS IMPORTADOS ' THEN ' MEDICAMENTOS IMPORTADOS '
+                    WHEN trim(modalidad)='PAC' THEN 'PAC'
+                    WHEN trim(modalidad)='PAF' THEN 'PAF'
+                    WHEN trim(modalidad)='PAF MOVILIDAD' THEN 'PAF MOVILIDAD '
+                    WHEN trim(modalidad)='PGP' THEN 'PGP'
+                    WHEN trim(modalidad)='PGP MOVILIDAD' THEN 'PGP MOVILIDAD'
+                    WHEN trim(modalidad)='PRESUPUESTO MAXIMO' THEN 'PRESUPUESTO MAXIMO'
+                    WHEN trim(modalidad)='TRASLADO PACIENTES' THEN 'TRASLADO PACIENTES'
+                      
+                END
+            )");
+
+        return $result;
+    }
 }

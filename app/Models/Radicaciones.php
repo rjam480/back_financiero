@@ -205,8 +205,8 @@ class Radicaciones extends Model
         $result = \DB::select("SELECT 
             (
                 CASE 
-                    WHEN tipo_factura_agrupado = 'EVENTO' THEN 'EVENTO'
-                    WHEN tipo_factura_agrupado='PAGOS_GLOBALES' THEN 'PAGOS GLOBALES'
+                    WHEN tipo_factura_agrupado = 'EVENTO' THEN 'Evento'
+                    WHEN tipo_factura_agrupado='PAGOS_GLOBALES' THEN 'Cápita y Pago Prospectivo'
                 END
             ) AS titulo,
             SUM(CASE WHEN mes_radicacion = 1 THEN valor ELSE 0.00 END) AS ENE,
@@ -226,12 +226,14 @@ class Radicaciones extends Model
             AND anio_radicacion = $anioActual
             group by (
                 CASE 
-                    WHEN tipo_factura_agrupado = 'EVENTO' THEN 'EVENTO'
-                    WHEN tipo_factura_agrupado='PAGOS_GLOBALES' THEN 'PAGOS GLOBALES'
+                    WHEN tipo_factura_agrupado = 'EVENTO' THEN 'Evento'
+                    WHEN tipo_factura_agrupado='PAGOS_GLOBALES' THEN 'Cápita y Pago Prospectivo'
                 END
             )
         ");
 
         return $result;
     }
+
+   
 }
