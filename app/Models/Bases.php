@@ -50,4 +50,19 @@ class Bases extends Model
 
         return $result;
     }
+
+    public function pagosProveedor($nit)
+    {
+        $result = \DB::select("SELECT pago_gd_subsidiado,
+        gd_contr_i,
+        gd_contr_ii,
+        gd_contr_iii,
+        gd_contr_iv,
+        otros_giros,
+        pago_por_tesoreria,
+        total_giros
+        FROM bases WHERE nit ='$nit' ");
+
+        return $result;
+    }
 }

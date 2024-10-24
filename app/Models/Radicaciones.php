@@ -26,6 +26,7 @@ class Radicaciones extends Model
 
     public function obtenerRadicacionesPorEstadosCSA($nit)
     {
+        $anio = data('Y');
         // Query Sección  Corriente/Sin Identificar/Anterior
         $result =  \DB::select("SELECT 
                     CASE 
@@ -50,7 +51,7 @@ class Radicaciones extends Model
                     radicaciones
                 WHERE 
                     nit = '$nit' 
-                    AND anio_radicacion = 2024
+                    AND anio_radicacion = $anio
                     AND mes_radicacion <= MONTH(CURDATE()) - 1
                 GROUP BY 
                     CASE 
@@ -193,6 +194,44 @@ class Radicaciones extends Model
             $result[1] = $totalRadicacion;
         }
         
+        return $result;
+    }
+
+
+    public function radicacionPorModalidadContrato($nit)
+    {
+        $anioActual = date('Y');
+
+        $result = \DB::select("SELECT 
+            (
+                CASE 
+                    WHEN tipo_factura_agrupado = 'EVENTO' THEN 'EVENTO'
+                    WHEN tipo_factura_agrupado='PAGOS_GLOBALES' THEN 'PAGOS GLOBALES'
+                END
+            ) AS titulo,
+            SUM(CASE WHEN mes_radicacion = 1 THEN valor ELSE 0.00 END) AS ENE,
+            SUM(CASE WHEN mes_radicacion = 2 THEN valor ELSE 0.00 END) AS FEB,
+            SUM(CASE WHEN mes_radicacion = 3 THEN valor ELSE 0.00 END) AS MAR,
+            SUM(CASE WHEN mes_radicacion = 4 THEN valor ELSE 0.00 END) AS ABR,
+            SUM(CASE WHEN mes_radicacion = 5 THEN valor ELSE 0.00 END) AS MAY,
+            SUM(CASE WHEN mes_radicacion = 6 THEN valor ELSE 0.00 END) AS JUN,
+            SUM(CASE WHEN mes_radicacion = 7 THEN valor ELSE 0.00 END) AS JUL,
+            SUM(CASE WHEN mes_radicacion = 8 THEN valor ELSE 0.00 END) AS AGO,
+            SUM(CASE WHEN mes_radicacion = 9 THEN valor ELSE 0.00 END) AS SEP,
+            SUM(CASE WHEN mes_radicacion = 10 THEN valor ELSE 0.00 END) AS OCT,
+            SUM(CASE WHEN mes_radicacion = 11 THEN valor ELSE 0.00 END) AS NOV,
+            SUM(CASE WHEN mes_radicacion = 12 THEN valor ELSE 0.00 END) AS DIC
+            FROM financiero.radicaciones
+            where nit ='$nit'
+            AND anio_radicacion = $anioActual
+            group by (
+                CASE 
+                    WHEN tipo_factura_agrupado = 'EVENTO' THEN 'EVENTO'
+                    WHEN tipo_factura_agrupado='PAGOS_GLOBALES' THEN 'PAGOS GLOBALES'
+                END
+            )
+        ");
+
         return $result;
     }
 }
