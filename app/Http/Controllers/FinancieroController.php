@@ -25,7 +25,7 @@ class FinancieroController extends Controller
         $segundaSeccionInforme = $this->radicaciones->obtenerTotalCorrienteTotalRadicacion($nit);
         $terceraSeccionInforme = $this->giros->obtenerGiros($nit);
         $radicacionPorModalidadContrato = $this->radicaciones->radicacionPorModalidadContrato($nit);
-        $pagosProveedor = $this->pagosProveedor($nit);
+        $pagosProveedor = $this->bases->pagosProveedor($nit);
         $dataResponse = [
             'cabecera' => $this->agregarValoresaCabecera($cabeceraInforme, $segundaSeccionInforme, $terceraSeccionInforme),
             'primer_seccion' => $primeraSeccionInforme,
