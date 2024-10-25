@@ -94,22 +94,43 @@ class AuthController extends Controller
     {
         $nit = $request->get('nit');
         $user = $this->user->where('nit','=',$nit)->first();
-        $token = str()->random(25);
-        $user->fill([
-            'remember_token' =>$token
-        ]);
-        $user->save();
-        Mail::to($user->email)->send(new RecuperarPassword([
-            'token' => $token,
-        ]));
 
-        return response()->json([
-            'data'          => [],
-            'access_token'  => '',
-            'token_type'    => '',
-            'msg'           => 'Email enviado satisfactoriamente',
-            'code_error'    => ''
-        ],200);
+        if ($user) {
+            $token = str()->random(25);
+            $user->fill([
+                'remember_token' =>$token
+            ]);
+            $user->save();
+            if ($user->email) {
+                Mail::to($user->email)->send(new RecuperarPassword([
+                    'token' => $token,
+                ]));
+        
+                return response()->json([
+                    'data'          => [],
+                    'access_token'  => '',
+                    'token_type'    => '',
+                    'msg'           => 'Email enviado satisfactoriamente',
+                    'code_error'    => ''
+                ],200);
+            }else{
+                return response()->json([
+                    'data'          => [],
+                    'access_token'  => '',
+                    'token_type'    => '',
+                    'msg'           => 'Email no registrado comunicate con el administrador',
+                    'code_error'    => ''
+                ],400);
+            }
+        }else{
+            return response()->json([
+                'data'          => [],
+                'access_token'  => '',
+                'token_type'    => '',
+                'msg'           => 'Prestador no registrado',
+                'code_error'    => ''
+            ],400);
+        }
     }
 
     public function recuperarPassword(Request $request)
