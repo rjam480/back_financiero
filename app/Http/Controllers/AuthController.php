@@ -111,7 +111,7 @@ class AuthController extends Controller
                     'data'          => [],
                     'access_token'  => '',
                     'token_type'    => '',
-                    'msg'           => "Email enviado satisfactoriamente $mail",
+                    'msg'           => "Email enviado satisfactoriamente a $mail",
                     'code_error'    => ''
                 ], 200);
             } else {
