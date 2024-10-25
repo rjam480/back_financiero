@@ -94,6 +94,7 @@ class AuthController extends Controller
     {
         $nit = $request->get('nit');
         $user = $this->user->where('nit', '=', $nit)->first();
+        $url_front=env('FRONT_FINACNIERA_URL');
 
         if ($user) {
             $token = str()->random(25);
@@ -104,6 +105,8 @@ class AuthController extends Controller
             if ($user->email) {
                 Mail::to($user->email)->send(new RecuperarPassword([
                     'token' => $token,
+                    'nit'=>$nit,
+                    'url'=>$url_front
                 ]));
                 $mail  = $this->obfuscateEmail($user->email);
                 
