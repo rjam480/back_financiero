@@ -44,10 +44,9 @@
                                         <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
                                             Recibimos una solicitud para el cambio de contraseña,
                                             haga clic en siguiente enlace y sigue las instrucciones.
-                                            {{$data['token']}}
                                         </p>
-                                        <a href="javascript:void(0);"
-                                            style="background:#20e277;text-decoration:none !important; font-weight:500; margin-top:35px; color:#fff;text-transform:uppercase; font-size:14px;padding:10px 24px;display:inline-block;border-radius:50px;">Recuperar contraseña</a>
+                                     <a href="http://localhost:4200/recuperarContrasena?token={{$data['token']}}&nit={{$data['nit']}}"
+                                            style="background:#0d6efd;text-decoration:none !important; font-weight:500; margin-top:35px; color:#fff;text-transform:uppercase; font-size:14px;padding:10px 24px;display:inline-block;border-radius:50px;">Recuperar contraseña</a>
                                     </td>
                                 </tr>
                                 <tr>
