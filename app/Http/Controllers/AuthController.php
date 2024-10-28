@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\RecuperarPassword;
-
+use App\Jobs\SendMail;
 class AuthController extends Controller
 {
     protected $user;
@@ -175,6 +175,20 @@ class AuthController extends Controller
         return response()->json([
             "message" => "logged out"
         ]);
+    }
+
+    public function creacionCuentaEmail(Request $request)
+    {
+        
+        SendMail::dispatch($request->get('data'));
+
+        return response()->json([
+            'data'          => [],
+            'access_token'  => '',
+            'token_type'    => '',
+            'msg'           => 'Tarea de envio de correos exitosa',
+            'code_error'    => ''
+        ],200);
     }
 
     private function obfuscateEmail(string $email)

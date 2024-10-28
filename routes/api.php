@@ -30,3 +30,4 @@ Route::middleware('auth:sanctum')->group( function () {
 
 Route::post('/enviar-email',[AuthController::class,'enviarEmail'])->name('enviarEmail');
 Route::post('/recuperar-password',[AuthController::class,'recuperarPassword'])->name('recuperarPassword');
+Route::post('/creacion-cuenta',[AuthController::class,'creacionCuentaEmail'])->name('creacionCuentaEmail');
