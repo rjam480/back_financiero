@@ -49,7 +49,7 @@ class AuthController extends Controller
                     'data'          => [],
                     'access_token'  => '',
                     'token_type'    => '',
-                    'msg'           => 'No aceptaste los terminos y condiciones para continuar.',
+                    'msg'           => 'Recuerde que al no aceptar los terminos y condiciones, usted no podra acceder a la información dispuesta en el portal.',
                     'code_error'    => '2'
                 ], 400);
             } else {
@@ -115,7 +115,7 @@ class AuthController extends Controller
                     'data'          => [],
                     'access_token'  => '',
                     'token_type'    => '',
-                    'msg'           => "Email enviado satisfactoriamente a $mail",
+                    'msg'           => "Hemos envido una notificacioón al email $mail, en donde usted podrá realizar el respectivo cambio de contraseña",
                     'code_error'    => ''
                 ], 200);
             } else {
@@ -162,7 +162,7 @@ class AuthController extends Controller
                 'data'          => [],
                 'access_token'  => '',
                 'token_type'    => '',
-                'msg'           => 'Contraseña actualizada satisfactoriamente',
+                'msg'           => 'Su contraseña  ha sido actualizada satisfactoriamente',
                 'code_error'    => ''
             ], 200);
         } else {
