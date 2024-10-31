@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\RecuperarPassword;
 use App\Jobs\SendMail;
+use Carbon\Carbon;
 class AuthController extends Controller
 {
     protected $user;
@@ -139,6 +140,10 @@ class AuthController extends Controller
 
     public function recuperarPassword(Request $request)
     {
+        $timpo = (int) env('TIEMPO_EXPIRA');
+        $hoy = new Carbon();
+        $hoy = $hoy->addMonth($timpo);
+        $hoy = $hoy->format('Y-m-d');
         $nit = $request->get('nit');
         $token = $request->get('token');
         $password = $request->get('password');
@@ -148,7 +153,8 @@ class AuthController extends Controller
 
             $user->fill([
                 'remember_token' => null,
-                'password' => $password
+                'password' => $password,
+                'expira_password'=>$hoy
             ]);
             $user->save();
 
