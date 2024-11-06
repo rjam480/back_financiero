@@ -221,7 +221,7 @@ class Radicaciones extends Model
             SUM(CASE WHEN mes_radicacion = 10 THEN valor ELSE 0.00 END) AS OCT,
             SUM(CASE WHEN mes_radicacion = 11 THEN valor ELSE 0.00 END) AS NOV,
             SUM(CASE WHEN mes_radicacion = 12 THEN valor ELSE 0.00 END) AS DIC
-            FROM financiero.radicaciones
+            FROM radicaciones
             where nit ='$nit'
             AND anio_radicacion = $anioActual
             group by (

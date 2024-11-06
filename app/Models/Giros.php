@@ -79,7 +79,7 @@ class Giros extends Model
             SUM(CASE WHEN mes_numero = 10 THEN valor_giro ELSE 0.00 END) AS OCT,
             SUM(CASE WHEN mes_numero = 11 THEN valor_giro ELSE 0.00 END) AS NOV,
             SUM(CASE WHEN mes_numero = 12 THEN valor_giro ELSE 0.00 END) AS DIC
-            FROM financiero.giros
+            FROM giros
             where nit ='$nit'
             group by
             (
