@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\FinancieroController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PoliticasController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -31,3 +32,4 @@ Route::middleware('auth:sanctum')->group( function () {
 Route::post('/enviar-email',[AuthController::class,'enviarEmail'])->name('enviarEmail');
 Route::post('/recuperar-password',[AuthController::class,'recuperarPassword'])->name('recuperarPassword');
 Route::post('/creacion-cuenta',[AuthController::class,'creacionCuentaEmail'])->name('creacionCuentaEmail');
+Route::get('/politicas', [PoliticasController::class, 'obtenerPoliticas']);
