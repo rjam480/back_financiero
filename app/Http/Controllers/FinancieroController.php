@@ -61,15 +61,29 @@ class FinancieroController extends Controller
             "11" => "NOV",
             "12" => "DIC",
         ];
+
+        $numPromedio=0;
+
+        foreach ($mes as $key => $value) {
+            $n = (int) $key;
+            $at = (int) $mesActual;
+            if ($n <= $at) {
+                $numPromedio ++;
+            }
+            
+        }
+       
         // calculamos el total de radicacion
 
-
+      
         $arrayReferenceSegundaSeccion =  unserialize(serialize($segundaSeccion));
         $arrayReferenceTerceraSeccion =  unserialize(serialize($terceraSeccion));
-        $totalRadicacion = $arrayReferenceSegundaSeccion[1];
+        
+        $totalRadicacion = $arrayReferenceSegundaSeccion[0];
         unset($totalRadicacion->Clasificacion);
         $totalRadicacion = (array) $totalRadicacion;
-        $totalRadicacion = array_sum($totalRadicacion);
+        $totalRadicacion = (array_sum($totalRadicacion) / $numPromedio);
+        
         // tomamos el ultimo mes en curso
         $girosMesActual = (array) $arrayReferenceTerceraSeccion[0];
         $selecionMes = $mes[$mesActual];

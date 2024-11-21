@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FinancieroController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PoliticasController;
+use App\Http\Controllers\GuardarEntidadesController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -24,7 +26,7 @@ Route::post('/auth/login',[AuthController::class,'authLogin'])->name('authlogin'
   
 
 Route::middleware('auth:sanctum')->group( function () {
-    // Route::get('consulta_financiero/{nit}',[FinancieroController::class,'consultaFinanciero'])->name('consultaFinanciero');
+
     Route::get('consulta_financiero/{nit}',[FinancieroController::class,'consultaFinanciero'])->name('consultaFinanciero');
     Route::post('/auth/logout',[AuthController::class,'authLogout'])->name('authlogout');
 });
@@ -33,3 +35,4 @@ Route::post('/enviar-email',[AuthController::class,'enviarEmail'])->name('enviar
 Route::post('/recuperar-password',[AuthController::class,'recuperarPassword'])->name('recuperarPassword');
 Route::post('/creacion-cuenta',[AuthController::class,'creacionCuentaEmail'])->name('creacionCuentaEmail');
 Route::get('/politicas', [PoliticasController::class, 'obtenerPoliticas']);
+Route::post('/guardar-entidades', [GuardarEntidadesController::class, 'guardarEntidades'])->name('guardarEntidades');

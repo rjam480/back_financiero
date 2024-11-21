@@ -28,8 +28,8 @@ class CorreoCreacion extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            from:'nuevaeps@nuevaeps.com.co',
-            subject: 'Creaciòn de cuenta',
+            from:'gestionfinanciera@nuevaeps.com.co',
+            subject: 'Asunto. Socialización de canal  web de publicación de estado de cuenta de las Instituciones Prestadoras de Servicios de Salud – IPS.',
         );
     }
 

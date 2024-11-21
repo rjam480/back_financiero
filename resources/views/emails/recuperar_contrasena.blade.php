@@ -45,8 +45,9 @@
                                             Recibimos una solicitud para el cambio de contraseña,
                                             haga clic en siguiente enlace y sigue las instrucciones.
                                         </p>
-                                     <a href="{{$data['link']}}"
-                                            style="background:#0d6efd;text-decoration:none !important; font-weight:500; margin-top:35px; color:#fff;text-transform:uppercase; font-size:14px;padding:10px 24px;display:inline-block;border-radius:50px;">Recuperar contraseña</a>
+                                     <a href="{!! $data['link'] !!}" style="background:#0d6efd;text-decoration:none !important; font-weight:500; margin-top:35px; color:#fff;text-transform:uppercase; font-size:14px;padding:10px 24px;display:inline-block;border-radius:50px;">Recuperar contraseña</a>
+                                    
+                                    
                                     </td>
                                 </tr>
                                 <tr>

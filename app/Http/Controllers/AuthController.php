@@ -95,8 +95,8 @@ class AuthController extends Controller
     {
         $nit = $request->get('nit');
         $user = $this->user->where('nit', '=', $nit)->first();
-        $url_front=env('FRONT_FINACNIERA_URL');
-        
+        $url_front= env('FRONT_FINACNIERA_URL');
+       
         if ($user) {
             $token = str()->random(25);
             $user->fill([
@@ -105,7 +105,8 @@ class AuthController extends Controller
             $user->save();
             if ($user->email) {
                 
-                $link = $url_front."recuperarContrasena?token=$token&nit=$nit";
+                $link = $url_front."recuperarContrasena?"."token=".$token."&nit=".$nit;
+                
                 
                 Mail::to($user->email)->send(new RecuperarPassword([
                     'link' => $link,
@@ -181,7 +182,7 @@ class AuthController extends Controller
     public function authLogout()
     {
         auth()->user()->auditEvent('logout');
-        auth()->user()->tokens()->delete();
+        auth()->user()->currentAccessToken()->delete();
         return response()->json([
             "message" => "logged out"
         ]);
