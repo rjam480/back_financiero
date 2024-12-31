@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\RecuperarPassword;
 use App\Jobs\SendMail;
 use Carbon\Carbon;
+use Illuminate\Bus\Batch;
+use Illuminate\Support\Facades\Bus;
 class AuthController extends Controller
 {
     protected $user;
@@ -190,8 +192,9 @@ class AuthController extends Controller
 
     public function creacionCuentaEmail(Request $request)
     {
-        
-        SendMail::dispatch($request->get('data'));
+        $batch = Bus::batch([])->dispatch();
+        $batch->add(new SendMail($request->get('data')));
+        // SendMail::dispatch($request->get('data'));
 
         return response()->json([
             'data'          => [],
@@ -200,6 +203,11 @@ class AuthController extends Controller
             'msg'           => 'Tarea de envio de correos exitosa',
             'code_error'    => ''
         ],200);
+    }
+
+    public function consultarTarea($id)
+    {
+        return Bus::findBatch($id);
     }
 
     private function obfuscateEmail(string $email)

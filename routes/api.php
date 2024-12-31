@@ -35,4 +35,5 @@ Route::post('/enviar-email',[AuthController::class,'enviarEmail'])->name('enviar
 Route::post('/recuperar-password',[AuthController::class,'recuperarPassword'])->name('recuperarPassword');
 Route::post('/creacion-cuenta',[AuthController::class,'creacionCuentaEmail'])->name('creacionCuentaEmail');
 Route::get('/politicas', [PoliticasController::class, 'obtenerPoliticas']);
-Route::post('/guardar-entidades', [GuardarEntidadesController::class, 'guardarEntidades'])->name('guardarEntidades');
+// Route::post('/guardar-entidades', [GuardarEntidadesController::class, 'guardarEntidades'])->name('guardarEntidades');
+Route::get('/batch/{id}', [AuthController::class, 'consultarTarea'])->name('consultarTarea');
